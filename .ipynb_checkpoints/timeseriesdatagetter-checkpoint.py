@@ -21,13 +21,13 @@ headers = {
 
 os.makedirs('timeseriesdata', exist_ok=True)
 
-with open('updated_finalstocks.csv') as csvfile:
+with open('pse_companies_full.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        company_id = row['companyId']
-        security_id = row['securityId']
-        company_name = row['companyName'].replace('/', '-')
-        company_file_path = f'historicaldata/{company_name}_historical.csv'
+        company_id = row['CompanyId']
+        security_id = row['SecurityId']
+        company_name = row['CompanyName'].replace('/', '-')
+        company_file_path = f'timeseriesdata/{company_name}_historical.csv'
 
         print(f"\nFetching data for: {company_name} | companyId: {company_id}")
 
@@ -38,7 +38,7 @@ with open('updated_finalstocks.csv') as csvfile:
             'endDate': datetime.today().strftime('%m-%d-%Y')
         }
 
-        # POST request
+        
         r = requests.post(url, json=payload, headers=headers)
         print("Status code:", r.status_code)
 
